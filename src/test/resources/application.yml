@@ -1,0 +1,9 @@
+spring:
+  profiles.active: test
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.HSQLDialect
+      ddl-auto: update
+    datasource:
+      driverClassName: org.hsqldb.jdbcDriver
+      url: jdbc:hsqldb:mem:mydb;DB_CLOSE_DELAY=1;
