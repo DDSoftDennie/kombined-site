@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -30,9 +31,7 @@ public class Question {
 	private long id;
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Length(max = 256)
 	private QuestionType questionType;
 	@NotNull
-	@Length(max = 4000)
 	private String question;
 }
