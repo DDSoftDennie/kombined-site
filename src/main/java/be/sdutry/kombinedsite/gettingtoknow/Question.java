@@ -1,17 +1,12 @@
-package be.sdutry.kombinedsite.questions.model;
+package be.sdutry.kombinedsite.gettingtoknow;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,17 +16,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "question", schema = "kombined")
-@Entity
+@Table(name = "getting_to_know_question", schema = "kombined")
+@Entity(name = "gettingToKnowQuestion")
 @Builder
 public class Question {
 	@Id
 	@Column(name = "id", insertable= false, updatable= false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	private QuestionType questionType;
 	@NotNull
 	private String question;
 }

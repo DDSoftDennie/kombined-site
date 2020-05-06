@@ -11,9 +11,11 @@ spring:
       use-new-id-generator-mappings: false
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///kombined
+    url: jdbc:mysql:///kombined?cloudSqlInstance=kombined-site:europe-west1:kombined&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=${kombinedDbUser}&password=${kombinedDbPassword}
     username: ${kombinedDbUser}
     password: ${kombinedDbPassword}
-    properties: 
-      socketFactory: com.google.cloud.sql.mysql.SocketFactory
-      cloudSqlInstance: kombined-site:europe-west1:kombined
+  cloud:
+    gcp:
+      sql:
+        database-name: kombined
+        instance-connection-name: kombined-site:europe-west1:kombined
