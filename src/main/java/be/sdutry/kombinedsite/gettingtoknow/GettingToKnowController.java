@@ -1,8 +1,11 @@
 package be.sdutry.kombinedsite.gettingtoknow;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,36 +15,39 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import be.sdutry.kombinedsite.util.controller.PdfRenderingController;
+import be.sdutry.kombinedsite.util.pdf.PdfService;
 
 @RestController
-public class GettingToKnowController {
+public class GettingToKnowController implements PdfRenderingController {
 	@Autowired
 	private GettingToKnowService gettingToKnowService;
-	
+	@Autowired
+	private PdfService pdfService;
+
 	@GetMapping("/getting-to-know/admin")
 	public ModelAndView getQuestionsAdmin(ModelMap model) {
 		List<Question> questions = gettingToKnowService.getAllQuestions();
-		
+
 		model.put("questions", questions);
-		
+
 		return new ModelAndView("gettingtoknow/admin", model);
 	}
-	
-	
+
 	@PostMapping("/getting-to-know/{questionId}/delete")
 	public RedirectView deleteQuestion(@PathVariable("questionId") long questionId) {
 		gettingToKnowService.deleteQuestion(questionId);
 
 		return new RedirectView("/getting-to-know/admin");
 	}
-	
+
 	@PostMapping("/getting-to-know/admin")
 	public ModelAndView addQuestion(@RequestParam("question") String question, ModelMap model) {
 		gettingToKnowService.addQuestion(question);
 
 		return getQuestionsAdmin(model);
 	}
-	
+
 	@GetMapping("/getting-to-know/random")
 	public ModelAndView getRandomGettingToKnowQuestion(ModelMap model) {
 		Question question = gettingToKnowService.getRandomQuestion();
@@ -50,4 +56,16 @@ public class GettingToKnowController {
 
 		return new ModelAndView("gettingtoknow/random", model);
 	}
+
+	@GetMapping("/getting-to-know/export/PDF")
+	public ResponseEntity<byte[]> exportPdf(ModelMap model) {
+		List<Question> questions = gettingToKnowService.getAllQuestions();
+		List<String> questionLines = questions.stream().map(question -> question.getQuestion())
+				.collect(Collectors.toList());
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		pdfService.writeLinesAsParagraphs(questionLines, baos);
+
+		return createPdfResponse(baos, "gettingToKnowQuestions.pdf");
+	}
+
 }
