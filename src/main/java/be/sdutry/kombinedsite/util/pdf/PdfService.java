@@ -32,9 +32,8 @@ public class PdfService {
 
 		for (final String line : lines) {
 			PdfPCell cell = new PdfPCell(new Phrase(line, font));
-			cell.setBorder(Rectangle.BOTTOM | Rectangle.TOP);
-			cell.setPaddingBottom(20);
-			cell.setPaddingTop(20);
+			cell.setBorder(Rectangle.BOX);
+			cell.setPadding(20);
 			table.addCell(cell);
 		}
 
