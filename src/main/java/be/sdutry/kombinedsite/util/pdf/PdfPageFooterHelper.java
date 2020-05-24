@@ -73,10 +73,11 @@ public class PdfPageFooterHelper extends PdfPageEventHelper {
 	
 	@Override
     public void onCloseDocument(PdfWriter writer, Document document) {
-        int totalLength = String.valueOf(writer.getPageNumber()).length();
+        String totalPagesAmount = String.valueOf(writer.getPageNumber() -1);
+		int totalLength = totalPagesAmount.length();
         int totalWidth = totalLength * 5;
         ColumnText.showTextAligned(t, Element.ALIGN_RIGHT,
-                new Phrase(String.valueOf(writer.getPageNumber()), new Font(FONT)),
+                new Phrase(totalPagesAmount, new Font(FONT)),
                 totalWidth, 6, 0);
     }
 }

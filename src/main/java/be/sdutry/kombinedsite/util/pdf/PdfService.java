@@ -17,7 +17,7 @@ import com.lowagie.text.pdf.PdfWriter;
 
 @Service
 public class PdfService {
-	public void writeLinesAsParagraphs(final List<String> lines, final OutputStream outputStream,
+	public void writeLinesAsTable(final List<String> lines, final OutputStream outputStream,
 			final String footerText) {
 		final Document doc = new Document(PageSize.A4, 16, 16, 36, 56);
 		final PdfWriter writer = PdfWriter.getInstance(doc, outputStream);

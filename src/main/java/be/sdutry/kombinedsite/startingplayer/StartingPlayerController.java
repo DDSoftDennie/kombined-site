@@ -65,7 +65,7 @@ public class StartingPlayerController implements PdfRenderingController {
 		List<String> questionLines = questions.stream().map(question -> question.getQuestion())
 				.collect(Collectors.toList());
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		pdfService.writeLinesAsParagraphs(questionLines, baos, "Startspeler bepalen");
+		pdfService.writeLinesAsTable(questionLines, baos, "Startspeler bepalen");
 
 		return createPdfResponse(baos, "startspelerBepalen.pdf");
 	}

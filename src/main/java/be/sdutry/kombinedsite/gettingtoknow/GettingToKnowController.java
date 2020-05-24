@@ -65,7 +65,7 @@ public class GettingToKnowController implements PdfRenderingController {
 		List<String> questionLines = questions.stream().map(question -> question.getQuestion())
 				.collect(Collectors.toList());
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		pdfService.writeLinesAsParagraphs(questionLines, baos, "Kennismakingsvragen");
+		pdfService.writeLinesAsTable(questionLines, baos, "Kennismakingsvragen");
 
 		return createPdfResponse(baos, "Kennismakingsvragen.pdf");
 	}
