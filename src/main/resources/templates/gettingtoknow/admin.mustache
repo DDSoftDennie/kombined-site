@@ -27,10 +27,6 @@
     </div>
     <div class="container mt-5">
       <a class="btn btn-primary float-right mb-1" href="export/PDF">Exporteren als PDF</a>
-      <div class="form-group">
-	    <label for="filterInput">Filter</label>
-        <input type="text" name="filterInput" class="form-control" id="filterInput" placeholder="Enter filter">
-      </div>
 	  <table id="questionsTable" class="table table-striped table-bordered">
         <thead>
           <tr>
@@ -63,7 +59,7 @@
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script>
       $(document).ready(function(){
-        $("#filterInput").on("keyup", function() {
+        $("#questionInput").on("keyup", function() {
           var value = $(this).val().toLowerCase();
           $("#questionsTable tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
